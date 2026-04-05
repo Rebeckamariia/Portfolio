@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio – Rebecka Korkis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --surface: #FFFFFF;
+    --text: #1A1814;
+    --muted: #6B685F;
+    --accent: #2C5F4A;
+    --accent-light: #EAF2EE;
+    --accent2: #C4733A;
+    --border: #E0DDD6;
+    --nav-h: 64px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    transition: opacity 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85; color: #fff !important; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    padding-top: var(--nav-h);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding-left: 10vw;
+    padding-right: 6vw;
+  }
+  .hero-text { padding: 4rem 0; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  h1 em { color: var(--accent2); font-style: italic; }
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-secondary {
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-image-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-image-frame {
+    width: 360px; height: 460px;
+    border-radius: 200px 200px 160px 160px;
+    background: var(--accent-light);
+    border: 2px solid var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-image-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .hero-image-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.75rem;
+    color: var(--accent);
+  }
+  .hero-image-placeholder svg { opacity: 0.4; }
+  .hero-image-placeholder span { font-size: 0.85rem; color: var(--muted); }
+  .hero-badge {
+    position: absolute;
+    bottom: -1rem; left: -1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .hero-badge strong { color: var(--accent); display: block; font-size: 1.1rem; }
+
+  /* SECTION COMMON */
+  section { padding: 6rem 10vw; }
+  section:nth-child(even) { background: var(--surface); }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+  h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .section-intro {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  /* OM MIG */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p { color: var(--muted); line-height: 1.9; margin-bottom: 1rem; font-size: 1.05rem; }
+  .about-facts {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .fact-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .fact-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 1rem;
+  }
+  .fact-card strong { display: block; font-weight: 600; font-size: 0.95rem; }
+  .fact-card span { font-size: 0.875rem; color: var(--muted); }
+
+  /* KOMPETENSER */
+  .skills-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .skill-group {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+  }
+  .skill-group-title {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.35rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+  .skill-tag.coming {
+    background: transparent;
+    border-style: dashed;
+    color: var(--muted);
+  }
+
+  /* UTBILDNING */
+  .education-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .edu-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 1.5rem;
+  }
+  .edu-year {
+    font-size: 0.8rem; font-weight: 600; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding-top: 0.2rem;
+    white-space: nowrap;
+  }
+  .edu-card h3 { font-size: 1.15rem; margin-bottom: 0.25rem; }
+  .edu-school { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .edu-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+  /* PROJEKT */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+  .project-img {
+    height: 180px;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .project-img img { width: 100%; height: 100%; object-fit: cover; }
+  .project-body { padding: 1.5rem; }
+  .project-type { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem; }
+  .project-body h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .project-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .project-tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px; padding: 0.2rem 0.75rem;
+    font-size: 0.78rem; font-weight: 500; color: var(--muted);
+  }
+  .project-link {
+    font-size: 0.875rem; font-weight: 500; color: var(--accent);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;
+  }
+  .project-link:hover { text-decoration: underline; }
+
+  /* ERFARENHET */
+  .exp-timeline { position: relative; padding-left: 2rem; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .exp-item {
+    position: relative; margin-bottom: 2.5rem;
+  }
+  .exp-dot {
+    position: absolute; left: -2rem; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+    outline: 1px solid var(--accent);
+    transform: translateX(-50%);
+  }
+  .exp-year { font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 0.25rem; }
+  .exp-item h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .exp-company { font-size: 0.9rem; color: var(--accent2); margin-bottom: 0.5rem; font-weight: 500; }
+  .exp-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+  /* OMDÖMEN */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .testimonial-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+  }
+  .testimonial-quote {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+  .author-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 0.875rem; color: var(--accent);
+    flex-shrink: 0;
+  }
+  .author-name { font-weight: 600; font-size: 0.9rem; }
+  .author-title { font-size: 0.8rem; color: var(--muted); }
+
+  /* KONTAKT */
+  #contact { background: var(--accent); color: #fff; }
+  #contact .section-label { color: rgba(255,255,255,0.6); }
+  #contact h2 { color: #fff; }
+  #contact .section-intro { color: rgba(255,255,255,0.75); }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.8); }
+  .form-group input,
+  .form-group textarea {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: rgba(255,255,255,0.5); }
+  .form-group textarea { resize: vertical; min-height: 140px; }
+  .btn-submit {
+    background: #fff;
+    color: var(--accent);
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+  }
+  .btn-submit:hover { opacity: 0.9; }
+  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-item strong { display: block; font-size: 0.85rem; opacity: 0.7; }
+  .contact-item span { font-size: 0.95rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+
+  /* SCROLL TO TOP */
+  .back-top {
+    position: fixed; bottom: 2rem; right: 2rem;
+    width: 44px; height: 44px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: var(--text);
+    font-size: 1.1rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    z-index: 50;
+  }
+  .back-top:hover { transform: translateY(-3px); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    #hero { grid-template-columns: 1fr; padding: 6rem 6vw 4rem; text-align: center; }
+    .hero-image-wrap { display: none; }
+    .hero-btns { justify-content: center; }
+    section { padding: 4rem 6vw; }
+    .about-grid, .skills-cols, .contact-layout, .edu-card { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-desc { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#hero" class="nav-logo">Rebecka Korkis</a>
+  <ul class="nav-links">
+    <li><a href="#about">Om mig</a></li>
+    <li><a href="#skills">Kompetenser</a></li>
+    <li><a href="#education">Utbildning</a></li>
+    <li><a href="#projects">Projekt</a></li>
+    <li><a href="#experience">Erfarenhet</a></li>
+    <li><a href="#contact" class="nav-cta">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <span class="hero-tag">Söker tjänst som systemutvecklare</span>
+    <h1><br><em>Rebecka Korkis</em><br></h1>
+    <p class="hero-desc">
+        Blivande systemutvecklare · .NET & Fullstack · Stockholm
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Ta kontakt →</a>
+      <a href="#projects" class="btn-secondary">Se projekt</a>
+    </div>
+  </div>
+    <div class="hero-image-frame">
+      <div class="hero-image-frame">
+    <img src="profil.jpg" alt="Rebecka Korkis">
+  </div>
+      <strong>2024–2026</strong>
+      Newton Kompetensutveckling 
+
+    </div>
+  </div>
+</section>
+
+<!-- OM MIG -->
+<section id="about">
+  <div class="section-label">Om mig</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2>Vem är jag?</h2>
+      <p>Jag kommer från en bakgrund där service, ledarskap och människor alltid stått i centrum. Det har lärt mig att lyssna, anpassa mig snabbt och leverera även under press, egenskaper jag tar med mig rakt in i rollen som utvecklare. Teknik lär jag mig, men förmågan att samarbeta och se helheten hade jag redan.</p>
+      <p>Jag studerar systemutveckling .NET på Newton Kompetensutveckling i Stockholm och tar examen våren 2026. Under utbildningen har jag arbetat med allt från backend i C# och .NET till fullstackutveckling med React, TypeScript och Next.js under min LIA-period.
+         Vid sidan av studierna jobbar jag på ICA Kvantum som kassör, det har gett mig förmågan att kommunicera tydligt, hantera press och ge en så bra kundupplevelse som möjligt.</p>
+    </div>
+    <div class="about-facts">
+      <div class="fact-card">
+        <div class="fact-icon">🎓</div>
+        <div>
+          <strong>Utbildning</strong>
+          <span>Newton Kompetensutveckling, 2024–2026</span>
+        </div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-icon">📍</div>
+        <div>
+          <strong>Ort</strong>
+          <span>Stockholm, Sverige</span>
+        </div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-icon">💼</div>
+        <div>
+          <strong>Bakgrund</strong>
+          <span>ICA Kvantum Kassör
+            <br> Förskole assistent
+          </span>
+        </div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-icon">🌍</div>
+        <div>
+          <strong>Språk</strong>
+          <span>Svenska, Engelska, Grekiska & Arabiska</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KOMPETENSER -->
+<section id="skills">
+  <style>
+    .komp-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C4733A; margin-bottom: 1rem; }
+    .komp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .komp-card { background: #fff; border: 1px solid #e8e4dd; border-radius: 14px; padding: 1.25rem 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+    .komp-card img { width: 44px; height: 44px; object-fit: contain; }
+    .komp-card span { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2C2C2A; text-align: center; }
+  </style>
+
+  <div class="section-label">Kompetenser</div>
+  <h2>Vad kan jag?</h2>
+
+  <div class="komp-label">Backend & Fullstack</div>
+  <div class="komp-grid">
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"><span>C#</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg"><span>.NET</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg"><span>SQL Server</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"><span>PostgreSQL</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg"><span>Entity Framework</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trpc/trpc-original.svg" onerror="this.src='https://trpc.io/img/logo.svg'"><span>tRPC</span></div>
+  </div>
+
+  <div class="komp-label">Frontend</div>
+  <div class="komp-grid">
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"><span>React</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"><span>Next.js</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"><span>TypeScript</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"><span>JavaScript</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"><span>HTML</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"><span>CSS</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"><span>Tailwind CSS</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blazor/blazor-original.svg"><span>Blazor</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg"><span>ASP.NET Core</span></div>
+  </div>
+
+  <div class="komp-label">DevOps & Verktyg</div>
+  <div class="komp-grid">
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg"><span>Azure</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"><span>Git</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"><span>GitHub</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"><span>Figma</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg"><span>Prisma</span></div>
+    <div class="komp-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg"><span>CI/CD</span></div>
+  </div>
+
+</section>
+
+<!-- UTBILDNING -->
+<section id="education">
+  <div class="section-label">Utbildning</div>
+  <h2>Akademisk bakgrund</h2>
+  <p class="section-intro">Mina utbildningar</p>
+  <div class="education-list">
+    <div class="edu-card">
+      <div class="edu-year">2024–2026</div>
+      <div>
+        <h3>Systemutvecklare .NET</h3>
+        <div class="edu-school">Newton Kompetensutveckling</div>
+        <div class="edu-desc"><div class="edu-desc">Tvåårig utbildning inom systemutveckling med fokus på .NET, fullstack och molntjänster i Azure. Kurser i OOP, databasutveckling, testning, gränssnittsutveckling, agil systemutveckling, säkerhet och CI/CD. Inkluderar två LIA-perioder och examensarbete.</div></div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2021–2024</div>
+      <div>
+        <h3>Gymnasium</h3>
+        <div class="edu-school">Danderyds gymnasium</div>
+        <div class="edu-desc">Samhäll beteendevetenskap inriktning kriminologi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJEKT -->
+<section id="projects">
+  <div class="section-label">Projekt</div>
+  <h2>Vad har jag byggt?</h2>
+  <p class="section-intro">Urval av projekt från utbildningen på Newton Kompetensutveckling.</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-img">💬</div>
+      <div class="project-body">
+        <div class="project-type">Webbapplikation</div>
+        <h3>Forum</h3>
+        <p>Fullständig forumapplikation med kategorier, inlägg, kommentarer, likes och rollbaserad behörighet. Byggd i Blazor med ASP.NET Core Identity, Entity Framework och SQLite. Adminpanel för hantering av användare och innehåll.</p>
+        <div class="project-tags">
+          <span class="project-tag">C#</span>
+          <span class="project-tag">Blazor</span>
+          <span class="project-tag">.NET</span>
+          <span class="project-tag">SQL</span>
+          <span class="project-tag">Bootstrap</span>
+        </div>
+        <a href="https://github.com/Rebeckamariia/ProjectForum_OPF" class="project-link" target="_blank">GitHub repo →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-img">📚</div>
+      <div class="project-body">
+        <div class="project-type">Databasprojekt</div>
+        <h3>Bibliotekssystem</h3>
+        <p>Konsolbaserat bibliotekssystem med databasdesign och CRUD-funktionalitet. Hanterar böcker, låntagare och utlåning via SQL Server och Entity Framework.</p>
+        <div class="project-tags">
+          <span class="project-tag">C#</span>
+          <span class="project-tag">.NET</span>
+          <span class="project-tag">SQL Server</span>
+          <span class="project-tag">Entity Framework</span>
+        </div>
+        <a href="https://github.com/Rebeckamariia/Project.Db-LibrarySystem" class="project-link" target="_blank">GitHub repo →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-img">🎵</div>
+      <div class="project-body">
+        <div class="project-type">Webbsida</div>
+        <h3>Musikgruppsida</h3>
+        <p>Webbsida för en musikgrupp byggd med HTML, CSS och JavaScript. Responsiv layout med interaktiva element och dynamiskt innehåll.</p>
+        <div class="project-tags">
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+        </div>
+        <a href="https://github.com/Rebeckamariia/Project_A_JavaScript" class="project-link" target="_blank">GitHub repo →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+  <div class="project-img">📦</div>
+  <div class="project-body">
+    <div class="project-type">Agilt grupprojekt</div>
+    <h3>Lagersystem</h3>
+    <p>Lagersystem utvecklat i grupp med agila metoder och Kanban-tavla för planering och struktur. Projektet genomfördes med fokus på samarbete, ansvarstagande och kvalitet trots utmaningar längs vägen.</p>
+    <div class="project-tags">
+      <span class="project-tag">C#</span>
+      <span class="project-tag">HTML</span>
+      <span class="project-tag">CSS</span>
+      <span class="project-tag">Agilt</span>
+      <span class="project-tag">Kanban</span>
+    </div>
+    <a href="https://github.com/Rebeckamariia/Project_AMN" class="project-link" target="_blank">GitHub repo →</a>
+  </div>
+</div>
+
+    <div class="project-card">
+      <div class="project-img">🧾</div>
+      <div class="project-body">
+        <div class="project-type">Konsollapplikation</div>
+        <h3>Kvittosystem</h3>
+        <p>Objektorienterad C#-applikation för hantering och generering av kvitton. Strukturerat med separata klasser för produkter, beräkningar och utskrift.</p>
+        <div class="project-tags">
+          <span class="project-tag">C#</span>
+          <span class="project-tag">.NET</span>
+          <span class="project-tag">OOP</span>
+        </div>
+        <a href="https://github.com/Rebeckamariia/Project-A-Receipt" class="project-link" target="_blank">GitHub repo →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-img">🃏</div>
+      <div class="project-body">
+        <div class="project-type">Konsollapplikation</div>
+        <h3>Pokerspel</h3>
+        <p>Turbaserat pokerspel i C# med spellogik, handvärdering och klassbaserad struktur. Byggd med fokus på objektorienterade principer och separation av ansvar.</p>
+        <div class="project-tags">
+          <span class="project-tag">C#</span>
+          <span class="project-tag">.NET</span>
+          <span class="project-tag">OOP</span>
+        </div>
+        <a href="https://github.com/Rebeckamariia/Project-B-Poker" class="project-link" target="_blank">GitHub repo →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERFARENHET -->
+<section id="experience">
+  <div class="section-label">Erfarenhet</div>
+  <h2>Arbetslivsbakgrund</h2>
+  <p class="section-intro">Mina roller och vad de gett mig.</p>
+  <div class="exp-timeline">
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-year">2023</div>
+      <h3>Nuvarande tjänst</h3>
+      <div class="exp-company">ICA Kvantum</div>
+      <div class="exp-desc">Kassa och utchecknings erfarenheter. Erfarenheter som teamledare - ansvar och ledarskap. Stärkte förmågan att kommunicera tydligt, hantera stressiga situationer och leda grupper mot gemensamma mål samt utvecklade en förståelse för kundservice och försäljning.</div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-year">2025-2026</div>
+      <h3>LIA – Fullstackutvecklare</h3>
+      <div class="exp-company">Sprinto</div>
+      <div class="exp-desc">Arbetade i ett agilt Scrum-team med sprintplaneringar och dagliga standups. Utvecklade funktionalitet i frontend och backend med React, Next.js, TypeScript, Tailwind CSS, tRPC och PostgreSQL. API-utveckling, databasmodellering med Prisma och implementation av UI utifrån Figma-underlag.</div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-year">2022</div>
+      <h3>Föregående roll</h3>
+      <div class="exp-company">Haga förskola</div>
+      <div class="exp-desc">Förskoleassistent via Vallentuna Kommun. Inspiratör i läsning och rörelse med fokus på kommunikation och ledarskap.</div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="contact">
+  <div class="section-label">Kontakt</div>
+  <div class="contact-layout">
+    <div>
+      <h2>Låt oss prata!</h2>
+      <p class="section-intro">Intresserad av att träffas för ett möte? Hör av dig!</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <strong>E-post</strong>
+            <span>Rebeckakorkis1@gmail.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💼</div>
+          <div>
+            <strong>LinkedIn</strong>
+            <span>linkedin.com/in/rebecka-k-9a7a06323</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🐙</div>
+          <div>
+            <strong>GitHub</strong>
+            <span>github.com/Rebeckamariia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="return false;">
+      <div class="form-group">
+        <label for="name">Namn</label>
+        <input type="text" id="name" placeholder="Ditt namn">
+      </div>
+      <div class="form-group">
+        <label for="email">E-post</label>
+        <input type="email" id="email" placeholder="din@email.se">
+      </div>
+      <div class="form-group">
+        <label for="message">Meddelande</label>
+        <textarea id="message" placeholder="Skriv ditt meddelande här..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Skicka meddelande →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Rebecka Korkis &nbsp;·&nbsp; <a href="#hero">Tillbaka upp ↑</a></p>
+</footer>
+
+<a href="#hero" class="back-top" title="Till toppen">↑</a>
+
+<script>
+  // Smooth active nav
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (link) link.style.color = 'var(--accent)';
+        links.forEach(l => {
+          if (l.getAttribute('href') !== `#${e.target.id}`) l.style.color = '';
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+
+  // Fade-in on scroll
+  const fadeEls = document.querySelectorAll('.project-card, .edu-card, .fact-card, .skill-group, .testimonial-card, .exp-item');
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    fadeObs.observe(el);
+  });
+</script>
+</body>
+</html>
